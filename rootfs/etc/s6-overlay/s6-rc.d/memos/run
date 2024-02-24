@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv sh
+
+# change chdir (this app uses cwd to look for dist/index.html)
+cd /app
+
+# run with limited permissions
+exec s6-setuidgid $PUID:$PGID /app/memos
