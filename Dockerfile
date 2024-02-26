@@ -19,13 +19,12 @@ RUN apk add --no-cache nodejs-current && corepack enable
 
 # node_modules
 COPY --from=source /src/web/package.json /src/web/pnpm-lock.yaml /src/web/tsconfig.json ./web/
-RUN pnpm --dir web install --frozen-lockfile --ignore-scripts
+COPY --from=source /src/proto ./proto
+RUN pnpm --dir web install --frozen-lockfile
 
 # frontend source and build
 COPY --from=source /src/web ./web
-COPY --from=source /src/proto ./proto
-RUN pnpm --dir web type-gen && \
-    pnpm --dir web build
+RUN pnpm --dir web build
 
 # build stage ==================================================================
 FROM base AS build-backend
