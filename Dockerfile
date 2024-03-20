@@ -40,7 +40,6 @@ RUN go mod download
 
 # build app
 COPY --from=source /src/bin ./bin
-COPY --from=source /src/api ./api
 COPY --from=source /src/internal ./internal
 COPY --from=source /src/plugin ./plugin
 COPY --from=source /src/server ./server
