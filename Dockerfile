@@ -45,6 +45,7 @@ COPY --from=source /src/plugin ./plugin
 COPY --from=source /src/server ./server
 COPY --from=source /src/store ./store
 COPY --from=source /src/proto ./proto
+COPY --from=build-frontend /src/web/dist ./server/router/frontend/dist
 ARG VERSION
 ARG COMMIT=$VERSION
 RUN mkdir /build && \
@@ -62,7 +63,6 @@ EXPOSE 8081
 
 # copy files
 COPY --from=build-backend /build /app
-COPY --from=build-frontend /src/web/dist /app/dist
 COPY ./rootfs/. /
 
 # runtime dependencies
